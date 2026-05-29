@@ -1,0 +1,36 @@
+name: DevOPs CI/CD Pipeline
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Baixar o código do repositório
+          uses: actions/checkout@v4
+
+        - name: Configurar o Node.js no servidor do GitHub
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+
+        - name: Instalar dependências da aplicação
+          run: npm install
+
+        - name: Executar testes automatizados
+          run: npm test
+
+    build-image:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+        - name: Baixar o código do repositório
+          uses: actions/checkout@v4
+
+        - name: Testar a construção da imagem Docker
+          run: |
+            docker build -t minha-app-devops:${{ github.sha }} .
+            echo "Imagem Docker gerada com sucesso para a versão ${{ github.sha }}"

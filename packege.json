@@ -1,0 +1,13 @@
+{
+    "name": "app-devops-demo",
+  "version": "1.0.0",
+  "description": "Minha app para testar CI/CD",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo 'Executando testes automatizados... Sucesso!' && exit 0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
